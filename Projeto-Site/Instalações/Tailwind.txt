@@ -1,0 +1,38 @@
+npm install flowbite
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
+
+
+
+Configurar o Tailwind para funcionar com Flowbite
+Abra o arquivo tailwind.config.js e edite para incluir o plugin do Flowbite e os arquivos .handlebars:
+
+js
+Copy
+Edit
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./views/**/*.handlebars", // Analisa arquivos Handlebars para aplicar estilos
+    "./public/**/*.js", // Analisa scripts do frontend
+    "./node_modules/flowbite/**/*.js" // Importa os componentes do Flowbite
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require("flowbite/plugin") // Adiciona o plugin do Flowbite
+  ],
+};
+
+@import "flowbite/src/themes/default"; /* Importa as variáveis do tema padrão */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+Depois, gere o CSS compilado pelo Tailwind:
+
+sh
+Copy
+Edit
+npx tailwindcss -i ./public/css/style.css -o ./public/css/output.css --watch
